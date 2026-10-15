@@ -1,4 +1,3 @@
-
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -18,6 +17,12 @@ Adafruit_SSD1306 display(
     -1
 );
 
+// 16x16 pixel Smiling Face Bitmap data
+const unsigned char smile_bitmap [] PROGMEM = {
+    0x07, 0xe0, 0x18, 0x18, 0x20, 0x04, 0x42, 0x42, 0x40, 0x02, 0x89, 0x91, 0x80, 0x01, 0x80, 0x01, 
+    0x80, 0x01, 0x84, 0x21, 0x44, 0x22, 0x43, 0xc2, 0x20, 0x04, 0x18, 0x18, 0x07, 0xe0, 0x00, 0x00
+};
+
 void setup() {
     Serial.begin(115200);
 
@@ -34,11 +39,14 @@ void setup() {
     display.setTextSize(1);
     display.setTextColor(SSD1306_WHITE);
 
+    // Print the names
     display.setCursor(0, 0);
     display.println("Muhammad Irtaza");
-
-    display.println("Muhammad Hassan Chatha");
+    display.println("Muhammad Hassan Chtha");
     display.println("Muhammad Adil");
+
+    // Draw the smiling emoji at X=0, Y=32 (16 pixels wide, 16 pixels high)
+    display.drawBitmap(0, 32, smile_bitmap, 16, 16, SSD1306_WHITE);
 
     display.display();
 
